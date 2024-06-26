@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Movie list</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="title_container">
+        <span id="content">
+          <h2 class="typedtext"></h2>
+        </span>
+        <h2 id="sub_header">Firebase Database exercise</h2>
+      </div>
+
+      <div id="form_container">
+        <input placeholder="ratings" type="ratings" id="ratings" />
+        <input placeholder="creator" type="creator" id="creator" />
+        <input placeholder="movie_title" type="movie_title" id="movie_title" />
+        <input placeholder="watch_time" type="watch_time" id="watch_time" />
+        <input placeholder="lang" type="text" id="lang" />
+        <input placeholder="image_URL" type="text" id="image_URL" />
+      </div>
+
+      <div id="button_container">
+        <button id="put" onclick="save()">SUBMIT</button>
+        <button id="get" onclick="get()">GET</button>
+      </div>
+    </div>
+  </body>
+
+  <script></script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <script src="index.js"></script>
+</html>

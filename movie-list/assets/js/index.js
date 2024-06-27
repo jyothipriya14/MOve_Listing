@@ -80,7 +80,7 @@
 //     alert("deleted");
 //   }
 
-// Your web app's Firebase configuration
+// Your web app's Firebase c// Your web app's Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyDo0QtSq9At1AOwbQfUADWFbcoQQbl-8oU",
   authDomain: "movie-d70c4.firebaseapp.com",
@@ -98,30 +98,40 @@ firebase.initializeApp(firebaseConfig);
 // Set database variable
 var database = firebase.database();
 
-function fetchMovies() {
-  var moviesRef = database.ref("movies");
-  moviesRef.on("value", function (snapshot) {
-    var movies = snapshot.val();
-    var moviesList = document.querySelector(".movies-list");
-    moviesList.innerHTML = ""; // Clear existing movies
+function fetchAllMovies() {
+  const moviesRef = database.ref("movies");
+  
+  moviesRef.once("value")
+    .then((snapshot) => {
+      const moviesData = snapshot.val();
+      const moviesList = document.querySelector(".movies-list");
+      moviesList.innerHTML = ""; // Clear existing content
 
-    for (var key in movies) {
-      if (movies.hasOwnProperty(key)) {
-        var movie = movies[key];
-        var movieCard = createMovieCard(movie);
+      // Convert object to array and sort by some criteria (e.g., title)
+      const moviesArray = Object.entries(moviesData).map(([key, value]) => ({
+        id: key,
+        ...value
+      }));
+      moviesArray.sort((a, b) => a.movie_title.localeCompare(b.movie_title));
+
+      // Render all movies
+      moviesArray.forEach(movie => {
+        const movieCard = createMovieCard(movie);
         moviesList.appendChild(movieCard);
-      }
-    }
-  });
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching movies:", error);
+    });
 }
 
 function createMovieCard(movie) {
-  var li = document.createElement("li");
+  const li = document.createElement("li");
   li.innerHTML = `
     <div class="movie-card">
       <a href="./movie-details.html">
         <figure class="card-banner">
-          <img src="${movie.image_URL}" alt="${movie.movie_title} movie poster">
+          <img src="${movie.image_URL}" alt="${movie.movie_title} movie poster" loading="lazy">
         </figure>
       </a>
       <div class="title-wrapper">
@@ -146,5 +156,5 @@ function createMovieCard(movie) {
   return li;
 }
 
-// Call fetchMovies when the page loads
-window.onload = fetchMovies;
+// Call fetchAllMovies when the page loads
+window.onload = fetchAllMovies;

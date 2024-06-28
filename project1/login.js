@@ -27,7 +27,7 @@ var firebaseConfig = {
       .then((userCredential) => {
         // Successfully logged in
         console.log("Login successful");
-        window.location.href = "./movie-list/index.html"; // Redirect to movie listing page
+        window.location.href = "../movie-list/index.html"; // Redirect to movie listing page
       })
       .catch((error) => {
         // Handle errors

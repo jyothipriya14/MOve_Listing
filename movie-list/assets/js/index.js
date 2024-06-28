@@ -101,9 +101,11 @@ var database = firebase.database();
 function fetchAllMovies() {
   const moviesRef = database.ref("movies");
   
+  
   moviesRef.once("value")
     .then((snapshot) => {
       const moviesData = snapshot.val();
+      console.log("Fetched Movies Data:", moviesData); 
       const moviesList = document.querySelector(".movies-list");
       moviesList.innerHTML = ""; // Clear existing content
 
